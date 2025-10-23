@@ -171,45 +171,387 @@
     </section>
 
     <!-- ABOUT SECTION -->
-    <section data-page="about" style="display:none">
-      <h2>About EcoGlow</h2>
-      <p class="lead">EcoGlow was founded to prove that effective skincare can also be sustainable. We combine research-backed botanicals with responsible sourcing to create products that perform without compromise.</p>
+    <!-- =========================
+     ABOUT — EcoGlow (Refreshed)
+     Drop-in section to replace old #about
+========================= -->
+<section id="about" class="about">
+  <style>
+    /* ---- About Section Styles (scoped by .about) ---- */
+    .about {
+      --bg: #f7faf7;
+      --card: #ffffff;
+      --ink: #1f2937;
+      --muted: #6b7280;
+      --brand: #2e7d6b;   /* sage/teal */
+      --brand-2: #a7c4b5; /* light sage */
+      --ring: rgba(46,125,107,.25);
+      --radius: 18px;
+      --shadow: 0 8px 28px rgba(0,0,0,.08);
+      background: linear-gradient(180deg, var(--bg), #fff);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      padding: clamp(2rem, 3vw, 3.5rem) 1rem;
+    }
+    .about .container {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+    .about h2, .about h3 {
+      line-height: 1.15;
+      letter-spacing: .2px;
+    }
+    .about h2 {
+      font-size: clamp(1.8rem, 2.8vw, 2.6rem);
+      margin: 0 0 1rem;
+    }
+    .about h3 {
+      font-size: clamp(1.25rem, 1.8vw, 1.4rem);
+      margin: 0 0 .5rem;
+    }
+    .about p { color: var(--muted); margin: .35rem 0 0; }
+    .about .lead { font-size: clamp(1.05rem, 1.6vw, 1.125rem); color: #374151 }
+    .about .subtle { color: var(--muted); }
 
-      <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:18px">
-        <div style="flex:1;min-width:280px">
-          <div class="card">
-            <h4>Our Mission</h4>
-            <p>To make sustainable beauty accessible by designing products with a low environmental footprint and transparent ingredient sourcing.</p>
-          </div>
+    /* Hero */
+    .about-hero {
+      display: grid;
+      gap: 1.25rem;
+      grid-template-columns: 1.1fr .9fr;
+      align-items: center;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(1rem, 3vw, 2rem);
+      overflow: clip;
+    }
+    .about-hero .headline {
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      font-weight: 800;
+      margin: 0 0 .5rem;
+    }
+    .about-hero .kicker {
+      font-weight: 600;
+      color: var(--brand);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .8rem;
+    }
+    .about-hero .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      margin-top: 1rem;
+      padding: .8rem 1rem;
+      border-radius: 999px;
+      background: var(--brand);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 6px 16px var(--ring);
+    }
+    .about-hero .media {
+      position: relative;
+      aspect-ratio: 4/3;
+      border-radius: calc(var(--radius) - 6px);
+      background: linear-gradient(135deg, var(--brand-2), #e6f0eb);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .about-hero .media img, .about-hero .media video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .about-hero .badge {
+      position: absolute; inset: auto 12px 12px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: .6rem .8rem;
+      box-shadow: var(--shadow);
+      font-size: .85rem;
+      display: flex; align-items: center; gap: .5rem;
+    }
+
+    /* Cards grid */
+    .about .grid {
+      display: grid;
+      gap: 1rem;
+    }
+    @media (min-width: 720px) {
+      .about .grid.cols-2 { grid-template-columns: 1fr 1fr; }
+      .about .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+      .about .grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.1rem 1.1rem 1.25rem;
+      height: 100%;
+    }
+    .card .icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: #ecf5f1; display: grid; place-items: center; margin-bottom: .6rem;
+    }
+    .card strong { color: #111827 }
+
+    /* Split */
+    .split {
+      display: grid; gap: 1rem; align-items: start;
+    }
+    @media (min-width: 900px) { .split { grid-template-columns: 1fr 1fr; } }
+
+    /* People / Testimonials */
+    .person {
+      display: grid; grid-template-columns: 56px 1fr; gap: .8rem; align-items: center;
+    }
+    .avatar {
+      width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+      border: 3px solid #fff; box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    }
+    blockquote {
+      margin: .5rem 0 0; color: #374151; font-weight: 500; font-size: .98rem;
+      border-left: 4px solid var(--brand-2); padding-left: .75rem;
+    }
+
+    /* Impact stats */
+    .stat {
+      display: grid; gap: .15rem;
+    }
+    .stat .num { font-weight: 800; font-size: clamp(1.6rem, 2.4vw, 2rem); color: var(--brand); }
+
+    /* Section spacing */
+    .section {
+      margin-top: clamp(2rem, 5.5vw, 4rem);
+    }
+
+    /* Motion */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal { opacity: 0; transform: translateY(10px); transition: .6s ease; }
+      .reveal.in { opacity: 1; transform: none; }
+    }
+  </style>
+
+  <div class="container">
+    <!-- HERO -->
+    <div class="about-hero reveal">
+      <div>
+        <div class="kicker">EcoGlow • Clean • Conscious • Confident</div>
+        <h2 class="headline">Beauty that honors your skin — and our planet.</h2>
+        <p class="lead">
+          At EcoGlow, we believe great skincare shouldn’t cost the Earth. Every ingredient, every pack, every process is designed for you — and for the planet.
+        </p>
+        <a href="#signup" class="cta" aria-label="Join our community for early access">
+          Join the Journey
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+      <div class="media">
+        <!-- If you have a short MP4/WebM, place it here; otherwise keep the image -->
+        <!-- <video src="assets/hero.mp4" autoplay muted loop playsinline></video> -->
+        <img src="https://images.unsplash.com/photo-1612817288484-6f916006a4a3?q=80&w=1600&auto=format&fit=crop" alt="EcoGlow moisturizer in recycled glass with greenery" />
+        <div class="badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.9L18.18 22 12 18.77 5.82 22 7 14.17l-5-4.9 6.91-1.01L12 2z" fill="#2e7d6b"/></svg>
+          Carbon-offset shipping
         </div>
+      </div>
+    </div>
 
-        <div style="flex:1;min-width:280px">
+    <!-- OUR STORY -->
+    <div class="section split reveal">
+      <div class="card">
+        <h2>How It All Began</h2>
+        <p>
+          Founded by a small team of skin-science and eco-enthusiasts, EcoGlow was born from a simple idea:
+          powerful, transparent skincare that respects people and the planet. We chose traceable botanicals, honest labels,
+          and packaging you can feel good about.
+        </p>
+        <div class="grid cols-2" style="margin-top:1rem">
           <div class="card">
-            <h4>Sustainability Practices</h4>
-            <ul>
-              <li>Recycled glass packaging and refill program</li>
-              <li>Supplier audits for fair labor</li>
-              <li>Carbon-offset shipping on domestic orders</li>
+            <div class="subtle">Milestones</div>
+            <ul class="subtle" style="margin:.5rem 0 0 1rem; line-height:1.6">
+              <li>Recycled-glass packaging launch</li>
+              <li>Refill program introduced</li>
+              <li>Carbon-neutral shipping achieved</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="subtle">What Guides Us</div>
+            <ul class="subtle" style="margin:.5rem 0 0 1rem; line-height:1.6">
+              <li>Radical transparency</li>
+              <li>Botanical efficacy</li>
+              <li>Design with purpose</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <section style="margin-top:18px">
-        <h3>SCI Principle: Growth through Integration</h3>
-        <p style="color:var(--muted)">We applied the Science of Creative Intelligence principle of "Growth through Integration" by harmonizing product design, customer experience, data-informed decisions, and ethical AI use. Integration guided the information architecture, visuals, and responsive layout to create a coherent user journey.</p>
-      </section>
+      <!-- MISSION & VALUES -->
+      <div class="card">
+        <h2>Our Mission</h2>
+        <p class="lead">To make sustainable beauty accessible — with a low footprint and high performance.</p>
 
-      <section style="margin-top:18px">
-        <h3>AI Workflow Narrative</h3>
-        <div class="card">
-          <p>
-            For this project I used AI tools intentionally to accelerate ideation and production while preserving human oversight. I selected ChatGPT for copywriting and SEO brainstorming because it quickly generated tone-appropriate headlines and keyword variations. Canva AI produced polished hero visuals and social graphics that matched brand colors; Runway was used to generate a short, atmospheric homepage video to illustrate product use. Two exact prompts used were: (1) "Write five creative homepage taglines for an eco-friendly skincare brand targeting young professionals," and (2) "Create a 30‑second video concept script showing a morning skincare routine focused on sustainability and natural ingredients." Outputs were carefully edited to ensure factual accuracy, brand voice, and originality; images and video were fine-tuned in Canva and Runway and then exported as web-friendly assets. AI supported creativity by proposing multiple directions quickly and improving production quality for visuals. Responsible AI practices included: documenting tools and prompts, human review for bias and factual accuracy, and attribution (e.g., "Image created with Canva AI"). The integration strengthened both creative speed and strategic clarity, allowing more time to focus on user experience and SEO optimization.
-          </p>
+        <div class="grid cols-2" style="margin-top:1rem">
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 2C8 7 6 9.5 6 12a6 6 0 0012 0c0-2.5-2-5-6-10z" fill="#2e7d6b"/></svg>
+            </div>
+            <strong>Clean Ingredients</strong>
+            <p>Plant-based, cruelty-free, no hidden nasties.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M4 7h16v10a2 2 0 01-2 2H6a2 2 0 01-2-2V7zM8 7V5a4 4 0 118 0v2" stroke="#2e7d6b" stroke-width="2" fill="none"/></svg>
+            </div>
+            <strong>Responsible Sourcing</strong>
+            <p>Traceable supply chains and fair labour practices.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M7 7h10v10H7z" fill="#a7c4b5"/><path d="M8 4h8v3H8z" fill="#2e7d6b"/></svg>
+            </div>
+            <strong>Sustainable Packaging</strong>
+            <p>Recycled glass with refill options to reduce waste.</p>
+          </div>
+          <div class="card">
+            <div class="icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24"><path d="M3 3h18v4H3zM3 10h18v4H3zM3 17h18v4H3z" fill="#2e7d6b"/></svg>
+            </div>
+            <strong>Planet-First Ops</strong>
+            <p>Carbon-offset shipping and green energy where possible.</p>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-    </section>
+    <!-- SCI & SCIENCE -->
+    <div class="section split reveal">
+      <div class="card">
+        <h2>Why It Works</h2>
+        <p>
+          We merge rigorous skin-science with botanical efficacy. Each formula is crafted by experienced chemists,
+          safety-tested, and designed to be gentle yet powerful.
+        </p>
+        <div class="grid cols-2" style="margin-top:1rem">
+          <div class="card">
+            <h3>Ingredient Spotlight</h3>
+            <p><strong>Niacinamide</strong> from sustainable barley helps reduce redness and strengthen the skin barrier.</p>
+          </div>
+          <div class="card">
+            <h3>Sustainability Spotlight</h3>
+            <p>Our glass jars are 100% recycled and fully recyclable. Refills can reduce waste by up to 60%.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>SCI Principle: Growth through Integration</h2>
+        <p>
+          We harmonize product design, customer experience, data-informed decisions, and ethical AI use.
+          Integration guides our IA, visuals, and responsive layout to create a coherent journey.
+        </p>
+        <h3 style="margin-top:.75rem">AI Workflow Narrative</h3>
+        <p class="subtle">
+          ChatGPT helped explore copy and SEO ideas; Canva AI shaped hero visuals; Runway supported a short ambient clip.
+          Outputs were refined for accuracy, voice, and performance before going live.
+        </p>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <div class="section reveal">
+      <h2>Meet the People</h2>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card person">
+          <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop" alt="Portrait of Jane Doe">
+          <div>
+            <strong>Jane Doe</strong><br><span class="subtle">Founder & Head of Innovation</span>
+            <blockquote>“Lab-level precision with an eco ethos.”</blockquote>
+          </div>
+        </div>
+        <div class="card person">
+          <img class="avatar" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop" alt="Portrait of Alex Nguyen">
+          <div>
+            <strong>Alex Nguyen</strong><br><span class="subtle">Lead Chemist</span>
+            <blockquote>“Gentle, evidence-based, effective formulas.”</blockquote>
+          </div>
+        </div>
+        <div class="card person">
+          <img class="avatar" src="https://images.unsplash.com/photo-1548142813-c348350df52b?q=80&w=400&auto=format&fit=crop" alt="Portrait of Priya Shah">
+          <div>
+            <strong>Priya Shah</strong><br><span class="subtle">Sustainability Officer</span>
+            <blockquote>“Design choices with measurable impact.”</blockquote>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="section reveal">
+      <h2>Loved by Real People</h2>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card">
+          <p>“Hydrates without irritation — and I love that the jar is recycled glass.”</p>
+          <p class="subtle">— Tara, NY</p>
+        </div>
+        <div class="card">
+          <p>“Refill program = less waste. My skin and conscience feel better.”</p>
+          <p class="subtle">— Omar, CA</p>
+        </div>
+        <div class="card">
+          <p>“Clean ingredients that actually perform. Finally.”</p>
+          <p class="subtle">— Mei, WA</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPACT SNAPSHOT -->
+    <div class="section reveal">
+      <h2>Our Footprint & Impact</h2>
+      <div class="grid cols-3" style="margin-top:1rem">
+        <div class="card stat">
+          <div class="num">2.4t</div>
+          <div class="subtle">Recycled glass used</div>
+        </div>
+        <div class="card stat">
+          <div class="num">62%</div>
+          <div class="subtle">Orders shipped carbon-neutral</div>
+        </div>
+        <div class="card stat">
+          <div class="num">58%</div>
+          <div class="subtle">Customers choosing refills</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- JOIN -->
+    <div id="signup" class="section reveal">
+      <div class="card">
+        <h2>Join Us</h2>
+        <p>Be part of the change. Subscribe for early access, sustainability tips, and behind-the-scenes stories.</p>
+        <form action="#" method="post" class="grid cols-3" style="margin-top:.8rem">
+          <input type="text" name="name" placeholder="Name" aria-label="Name" class="card" style="padding:.8rem">
+          <input type="email" name="email" placeholder="Email" aria-label="Email" class="card" style="padding:.8rem">
+          <button class="cta" type="submit" style="justify-self:start">Sign Up</button>
+        </form>
+        <p class="subtle" style="margin-top:.6rem">Wholesale & partnerships: <a href="mailto:hello@ecoglow.example">hello@ecoglow.example</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- tiny reveal-on-scroll helper (optional) -->
+  <script>
+    (function(){
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+        return;
+      }
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+      }, { threshold: .12 });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    })();
+  </script>
+</section>
 
     <!-- CONTACT / CTA SECTION -->
     <section data-page="contact" style="display:none;margin-top:18px">
